@@ -48,7 +48,7 @@ export default function readXlsx(contents, xml, options = {}) {
     return []
   }
 
-  const [ leftTop, rightBottom ] = sheet.dimensions
+  const [leftTop, rightBottom] = sheet.dimensions
 
   const cols = (rightBottom.column - leftTop.column) + 1
   const rows = (rightBottom.row - leftTop.row) + 1
@@ -84,7 +84,7 @@ export default function readXlsx(contents, xml, options = {}) {
   return data
 }
 
-function calculateDimensions (cells) {
+function calculateDimensions(cells) {
   const comparator = (a, b) => a - b
   const allRows = cells.map(cell => cell.row).sort(comparator)
   const allCols = cells.map(cell => cell.column).sort(comparator)
@@ -123,8 +123,8 @@ function colToInt(col) {
 function CellCoords(coords) {
   coords = coords.split(/(\d+)/)
   return {
-    row    : parseInt(coords[1]),
-    column : colToInt(coords[0])
+    row: parseInt(coords[1]),
+    column: colToInt(coords[0])
   }
 }
 
@@ -138,7 +138,7 @@ function Cell(cellNode, sheet, xml, values, styles, properties, options) {
   // http://webapp.docx4java.org/OnlineDemo/ecma376/SpreadsheetML/ST_CellType.html
   switch (cellNode.getAttribute('t')) {
     case 's':
-      value = values[parseInt(value)].trim()
+      value = values[parseInt(value)] ? values[parseInt(value)].trim() : ''; //It was breaking due to value = undefined
       if (value === '') {
         value = undefined
       }
@@ -175,8 +175,8 @@ function Cell(cellNode, sheet, xml, values, styles, properties, options) {
   }
 
   return {
-    row    : coords.row,
-    column : coords.column,
+    row: coords.row,
+    column: coords.column,
     value
   }
 }
