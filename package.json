@@ -32,8 +32,7 @@
     "build-es6-modules": "better-npm-run build-es6-modules",
     "browser-build": "better-npm-run browser-build",
     "build": "npm-run-all clean-for-build build-commonjs-modules build-es6-modules browser-build",
-    "prepublish": "npm-run-all build test browser-build",
-    "postinstall": "npm run build"
+    "prepublish": "npm-run-all build test browser-build"
   },
   "dependencies": {
     "jszip": "^3.1.5",
